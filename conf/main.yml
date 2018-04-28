@@ -1,0 +1,12 @@
+--- 
+endpoints: 
+  - 
+    endpoint: "POST:/login"
+    backend: 
+      - "POST:/user/validate_user:no"
+      - "POST:/session/update_expiration"
+  - 
+    endpoint: "GET:/logout"
+    backend: 
+      - "GET:/session/check"
+      - "GET:/session/destroy"
