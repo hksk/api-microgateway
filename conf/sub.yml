@@ -3,5 +3,5 @@ endpoints:
   - 
     endpoint: "POST:/checkhealth"
     backend: 
-      - "POST:/user/check-status:no"
-      - "POST:/session/check-status:no"
+      - "GET:/user/check-health:return"
+      - "GET:/session/check-status:return"
