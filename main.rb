@@ -64,11 +64,19 @@ def requests_chain(backend_list,params)
 			send_data = {:json => params_prepared}	
 		end
 		response = HTTP.send(smethod,$server+suri, send_data )
+		if response.status != 200
+			return "{error: 'breaked'}"
+		end
 		responseReq = JSON.parse(response.to_s,object_class: Hash) rescue {}
-		params_prepared = params_prepared.merge(responseReq)
+		puts backend.filter
+		if backend.filter != "return"
+			params_prepared = responseReq
+		else
+			params_prepared = params_prepared.merge(responseReq)
+		end
 		d " "
 		d "    id: #{chain_id}"
-		d "    URI: #{suri} [#{smethod}]"
+		d "    URI: #{suri} [#{smethod}] {#{backend.filter}}"
 		d "    to send: #{params_prepared.to_s}"
 		d "    received: #{responseReq.to_s}"
 	end
